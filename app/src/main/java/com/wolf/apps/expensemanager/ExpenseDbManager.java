@@ -18,7 +18,7 @@ class ExpenseDbManager extends SQLiteOpenHelper {
 
         String tbl_expense_category = "CREATE TABLE expense_category (e_cat_id INTEGER PRIMARY KEY AUTOINCREMENT, e_cat_description TEXT)";
         String tbl_expense_sub_category = "CREATE TABLE expense_sub_category( e_sub_cat_id INTEGER PRIMARY KEY AUTOINCREMENT, e_sub_cat_description TEXT, e_cat_id INTEGER, FOREIGN KEY(e_cat_id) REFERENCES expense_category(e_cat_id))";
-        String tbl_expense_details = "CREATE TABLE expense_details( e_details_id INTEGER PRIMARY KEY AUTOINCREMENT, e_details_amount NUMERIC, e_details_description TEXT, transaction_type TEXT, e_sub_cat_id INTEGER, FOREIGN KEY(e_sub_cat_id) REFERENCES expense_sub_category(e_sub_cat_id))";
+        String tbl_expense_details = "CREATE TABLE expense_details( e_details_id INTEGER PRIMARY KEY AUTOINCREMENT, e_details_amount NUMERIC, e_details_description TEXT, transaction_type int, e_sub_cat_id INTEGER, FOREIGN KEY(e_sub_cat_id) REFERENCES expense_sub_category(e_sub_cat_id))";
 
         db.execSQL(tbl_income_category);
         db.execSQL(tbl_income_sub_category);
