@@ -48,7 +48,7 @@ class IncomeSubCategory {
     public void update(SQLiteDatabase db){
         ContentValues values = new ContentValues();
         values.put("i_sub_cat_description", this.description);
-        db.update("income_sub_category", values, "id = " + this.id, null);
+        db.update("income_sub_category", values, "i_sub_cat_id = " + this.id, null);
         db.close();
     }
 
@@ -63,7 +63,7 @@ class IncomeSubCategory {
     }
 
     public static IncomeSubCategory getById(int id, SQLiteDatabase db){
-        Cursor cursor = db.rawQuery("SELECT * FROM income_sub_category WHERE id = " + id, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM income_sub_category WHERE i_sub_cat_id = " + id, null);
         if(cursor.moveToFirst()){
             return new IncomeSubCategory(id, cursor.getString(1), IncomeCategory.getById(cursor.getInt(2), db));
         }
@@ -71,7 +71,7 @@ class IncomeSubCategory {
     }
 
     public static IncomeSubCategory getByDescription(String description, SQLiteDatabase db){
-        Cursor cursor = db.rawQuery("SELECT * FROM income_sub_category WHERE description = " + description, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM income_sub_category WHERE description = '" + description + "'", null);
         if(cursor.moveToFirst()){
             return new IncomeSubCategory(cursor.getInt(0), description, IncomeCategory.getById(cursor.getInt(2), db));
         }

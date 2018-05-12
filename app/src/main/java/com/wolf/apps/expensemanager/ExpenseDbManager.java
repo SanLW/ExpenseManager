@@ -14,7 +14,7 @@ class ExpenseDbManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         String tbl_income_category = "CREATE TABLE income_category (i_cat_id INTEGER PRIMARY KEY AUTOINCREMENT, i_cat_description TEXT)";
         String tbl_income_sub_category = "CREATE TABLE income_sub_category( i_sub_cat_id INTEGER PRIMARY KEY AUTOINCREMENT, i_sub_cat_description TEXT, i_cat_id INTEGER, FOREIGN KEY(i_cat_id) REFERENCES income_category(i_cat_id))";
-        String tbl_income_details = "CREATE TABLE income_details( i_details_id INTEGER PRIMARY KEY AUTOINCREMENT, i_details_amount NUMERIC, i_details_description TEXT, transaction_type TEXT, i_sub_cat_id INTEGER, FOREIGN KEY(i_sub_cat_id) REFERENCES income_sub_category(i_sub_cat_id))";
+        String tbl_income_details = "CREATE TABLE income_details( i_details_id INTEGER PRIMARY KEY AUTOINCREMENT, i_details_amount NUMERIC, i_details_description TEXT, transaction_type int, i_sub_cat_id INTEGER, FOREIGN KEY(i_sub_cat_id) REFERENCES income_sub_category(i_sub_cat_id))";
 
         String tbl_expense_category = "CREATE TABLE expense_category (e_cat_id INTEGER PRIMARY KEY AUTOINCREMENT, e_cat_description TEXT)";
         String tbl_expense_sub_category = "CREATE TABLE expense_sub_category( e_sub_cat_id INTEGER PRIMARY KEY AUTOINCREMENT, e_sub_cat_description TEXT, e_cat_id INTEGER, FOREIGN KEY(e_cat_id) REFERENCES expense_category(e_cat_id))";
