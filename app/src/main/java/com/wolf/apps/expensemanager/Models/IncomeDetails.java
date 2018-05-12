@@ -1,4 +1,4 @@
-package com.wolf.apps.expensemanager;
+package com.wolf.apps.expensemanager.Models;
 
 import android.content.ContentValues;
 import android.database.Cursor;
