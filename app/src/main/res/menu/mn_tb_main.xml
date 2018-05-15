@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mn_tb_main_calendar"
+        android:icon="@drawable/ic_mn_calendar"
+        android:title="@string/calendar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/mn_tb_main_settings"
+        android:icon="@drawable/ic_mn_settings"
+        android:title="@string/settings"
+        app:showAsAction="ifRoom" />
+</menu>

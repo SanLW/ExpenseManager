@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Expense Manager</string>
+    <string name="settings">Settings</string>
+    <string name="calendar">Calendar</string>
 </resources>
