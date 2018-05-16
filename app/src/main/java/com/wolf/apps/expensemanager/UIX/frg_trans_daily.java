@@ -15,11 +15,13 @@ import android.widget.TextView;
 
 import com.wolf.apps.expensemanager.R;
 
+import java.util.Calendar;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class frg_trans_daily extends Fragment {
-
+    private Calendar current_date;
 
     public frg_trans_daily() {
         // Required empty public constructor
@@ -55,5 +57,9 @@ public class frg_trans_daily extends Fragment {
         txt_income_amount.setLayoutParams(new LinearLayout.LayoutParams(x/3, LinearLayout.LayoutParams.WRAP_CONTENT));
         txt_expense_amount.setLayoutParams(new LinearLayout.LayoutParams(x/3, LinearLayout.LayoutParams.WRAP_CONTENT));
         txt_total_amount.setLayoutParams(new LinearLayout.LayoutParams(x/3, LinearLayout.LayoutParams.WRAP_CONTENT));
+    }
+
+    public void setCurrent_date(Calendar current_date) {
+        this.current_date = current_date;
     }
 }

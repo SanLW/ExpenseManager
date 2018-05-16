@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import com.wolf.apps.expensemanager.MainActivity;
 import com.wolf.apps.expensemanager.R;
 
+import java.util.Calendar;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -24,6 +26,11 @@ public class frg_trans extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Calendar current_date;
+    private frg_trans_daily calling_frg_daily;
+    private frg_trans_weekly calling_frg_weekly;
+    private frg_trans_monthly calling_frg_monthly;
+    private frg_trans_all calling_frg_all;
 
     public frg_trans() {
         // Required empty public constructor
@@ -45,6 +52,8 @@ public class frg_trans extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.vp_tans);
         viewPager.setAdapter(new MainPagerAdapter(getFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
+
+        current_date = Calendar.getInstance();
     }
 
     class MainPagerAdapter extends FragmentPagerAdapter {
@@ -57,13 +66,21 @@ public class frg_trans extends Fragment {
         public Fragment getItem(int position) {
             switch(position){
                 case 0:
-                    return new frg_trans_daily();
+                    calling_frg_daily = new frg_trans_daily();
+                    calling_frg_daily.setCurrent_date(current_date);
+                    return calling_frg_daily;
                 case 1:
-                    return new frg_trans_weekly();
+                    calling_frg_weekly = new frg_trans_weekly();
+                    calling_frg_weekly.setCurrent_date(current_date);
+                    return calling_frg_weekly;
                 case 2:
-                    return new frg_trans_monthly();
+                    calling_frg_monthly = new frg_trans_monthly();
+                    calling_frg_monthly.setCurrent_date(current_date);
+                    return calling_frg_monthly;
                 case 3:
-                    return new frg_trans_all();
+                    calling_frg_all = new frg_trans_all();
+                    calling_frg_all.setCurrent_date(current_date);
+                    return calling_frg_all;
                 default:
                     return null;
             }
@@ -90,5 +107,9 @@ public class frg_trans extends Fragment {
                     return null;
             }
         }
+    }
+
+    public void setCurrent_date(Calendar current_date) {
+        this.current_date = current_date;
     }
 }
