@@ -3,10 +3,9 @@ package com.wolf.apps.expensemanager;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,12 +19,12 @@ import android.widget.CalendarView;
 import com.wolf.apps.expensemanager.UIX.*;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, DialogInterface.OnCancelListener{
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
 
-    private TabLayout tabLayout;
-    private Fragment frg_transactions, frg_statistics, frg_acs;
-    private FragmentTransaction fragmentTransaction;
     private Calendar current_date;
+    private frg_trans calling_frg_trans;
+    private frg_stats calling_frg_stats;
+    private frg_accounts calling_frg_accounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +32,22 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.tb_main));
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs_main);
-
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs_main);
         tabLayout.setOnTabSelectedListener(this);
 
-        frg_transactions = new frg_trans();
-        frg_statistics = new frg_stats();
-        frg_acs = new frg_accounts();
+        calling_frg_trans = new frg_trans();
+        calling_frg_stats = new frg_stats();
+        calling_frg_accounts = new frg_accounts();
+        calling_frg_trans.setCurrent_date(current_date);
+        calling_frg_stats.setCurrent_date(current_date);
+        calling_frg_accounts.setCurrent_date(current_date);
 
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.frm_main, frg_transactions);
-        fragmentTransaction.add(R.id.frm_main, frg_statistics);
-        fragmentTransaction.add(R.id.frm_main, frg_acs);
-        fragmentTransaction.hide(frg_statistics);
-        fragmentTransaction.hide(frg_acs);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.frm_main, calling_frg_trans);
+        fragmentTransaction.add(R.id.frm_main, calling_frg_stats);
+        fragmentTransaction.add(R.id.frm_main, calling_frg_accounts);
+        fragmentTransaction.hide(calling_frg_stats);
+        fragmentTransaction.hide(calling_frg_accounts);
         fragmentTransaction.commit();
 
         current_date = Calendar.getInstance();
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 return true;
             case R.id.mn_tb_main_settings:
                 return true;
+            case R.id.mn_tb_main_settings_income_categories:
+                startActivity(new Intent(this, IncomeCategories.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -76,19 +80,19 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onTabSelected(TabLayout.Tab tab) {
         switch(tab.getPosition()){
             case 0:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).show(frg_transactions).commit();
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(frg_statistics).commit();
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(frg_acs).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).show(calling_frg_trans).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(calling_frg_stats).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(calling_frg_accounts).commit();
                 return;
             case 1:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(frg_transactions).commit();
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).show(frg_statistics).commit();
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(frg_acs).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(calling_frg_trans).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).show(calling_frg_stats).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(calling_frg_accounts).commit();
                 return;
             case 2:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(frg_transactions).commit();
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(frg_statistics).commit();
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).show(frg_acs).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(calling_frg_trans).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).hide(calling_frg_stats).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).show(calling_frg_accounts).commit();
                 return;
             default:
                 return;
@@ -104,12 +108,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-
-    }
-
 
     class CalendarDialog extends Dialog{
 

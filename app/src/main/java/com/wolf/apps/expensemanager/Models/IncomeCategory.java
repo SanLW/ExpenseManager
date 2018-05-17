@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
-class IncomeCategory {
+public class IncomeCategory {
     private int id;
     private String description;
 
@@ -30,11 +30,16 @@ class IncomeCategory {
         ContentValues values = new ContentValues();
         values.put("i_cat_description", this.description);
         db.insert("income_category", null, values);
+        values.clear();
+        values.put("i_sub_cat_description", "Unspecified");
+        values.put("i_cat_id", this.id);
+        db.insert("income_sub_category", null, values);
         db.close();
     }
 
     public void remove(SQLiteDatabase db){
         db.execSQL("DELETE FROM income_category WHERE i_cat_id = " + this.id);
+        db.execSQL("DELETE FROM income_sub_category WHERE i_cat_id = " + this.id);
     }
 
     public void update(SQLiteDatabase db){

@@ -4,22 +4,20 @@ package com.wolf.apps.expensemanager.UIX;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.wolf.apps.expensemanager.R;
 
+import java.util.Calendar;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class frg_stats extends Fragment {
-
+    private Calendar current_date;
 
     public frg_stats() {
         // Required empty public constructor
@@ -39,6 +37,7 @@ public class frg_stats extends Fragment {
 
     }
 
-
-
+    public void setCurrent_date(Calendar current_date) {
+        this.current_date = current_date;
+    }
 }

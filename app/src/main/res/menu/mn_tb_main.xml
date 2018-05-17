@@ -11,5 +11,16 @@
         android:id="@+id/mn_tb_main_settings"
         android:icon="@drawable/ic_mn_settings"
         android:title="@string/settings"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item
+                android:id="@+id/mn_tb_main_settings_expense_categories"
+                android:title="Expense Categories" />
+            <item
+                android:id="@+id/mn_tb_main_settings_income_categories"
+                android:title="Income Categories" />
+        </menu>
+
+    </item>
 </menu>
